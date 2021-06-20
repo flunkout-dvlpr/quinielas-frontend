@@ -1,7 +1,7 @@
 <template>
   <q-layout view="lHh Lpr lFf">
     <q-header elevated>
-      <q-toolbar class="row justify-center">
+      <q-toolbar class="row justify-center brand-blue-gradient">
 <!--         <q-btn
           flat
           dense
