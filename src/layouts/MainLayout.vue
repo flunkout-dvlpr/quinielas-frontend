@@ -1,7 +1,7 @@
 <template>
   <q-layout view="lHh Lpr lFf">
     <q-header elevated>
-      <q-toolbar class="row justify-center brand-blue-gradient">
+      <q-toolbar class="row justify-center brand-green-gradient">
 <!--         <q-btn
           flat
           dense
@@ -11,7 +11,7 @@
           @click="leftDrawerOpen = !leftDrawerOpen"
         /> -->
         <div class="col">
-          <div class="text-center text-weight-regular text-h4">Quinielas</div>
+          <div class="q-pa-sm text-center text-weight-regular text-h4">Quinielas</div>
         </div>
         <!-- <div>Quasar v{{ $q.version }}</div> -->
       </q-toolbar>
