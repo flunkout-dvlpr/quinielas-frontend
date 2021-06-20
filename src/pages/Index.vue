@@ -1,28 +1,32 @@
 <template>
   <q-page>
-    <div class="row justify-center items-start content-start q-mt-md q-mb-sm">
-      <div class="col-md-6 col-xs-12">
-        <div class="row justify-center full-width">
-          <div class="col-11">
-            <router-view name="User" />
+    <!-- ROW I -->
+    <div class="row justify-around items-start content-start">
+      <!-- lEFT SIDE -->
+      <div class="col-md-6 col-xs-11 q-my-md">
+        <div class="row justify-center">
+          <div class="col-md-11 col-xs-12 q-ma-sm">
+            <router-view name="User"/>
           </div>
-          <div style="height: 175px" class="col-11">
+          <div class="col-md-11 col-xs-12 q-ma-sm">
             <router-view name="Groups" />
           </div>
         </div>
       </div>
-      <div class="col-md-6 col-xs-12">
-        <div class="row justify-center full-width">
-          <div style="height: 350px" class="border-box col-11">
+      <!-- RIGHT SIDE -->
+      <div class="col-md-6 col-xs-11 q-my-md">
+        <div class="row justify-center">
+          <div class="col-md-11 col-xs-12 q-ma-sm">
             <router-view name="Fixtures" />
           </div>
         </div>
       </div>
     </div>
-    <div class="row justify-start items-start content-start q-mt-none q-mb-sm">
-      <div class="col-md-6 col-xs-12">
-        <div class="row justify-center full-width">
-          <div style="height: 350px" class="border-box col-11">
+    <!-- ROW II -->
+    <div class="row justify-center items-start content-start">
+      <div class="col-md-11 col-xs-11 q-my-md">
+        <div class="row justify-center">
+          <div class="col-md-12 col-xs-12 q-ma-sm">
             <router-view name="Matches" />
           </div>
         </div>
@@ -36,9 +40,3 @@ export default {
   name: 'PageIndex'
 }
 </script>
-
-<style type="text/css">
-.border-box {
-  border-style: solid
-}
-</style>
