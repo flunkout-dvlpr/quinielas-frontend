@@ -1,21 +1,27 @@
 <template>
-  <div class="row justify-center items-center content-center brand-light-blue-gradient shadow-20">
-    <div class="col-12 full-width">
+  <q-card square class="bg-brand-4 border-dark-green-box shadow-20">
+    <q-card-section class="q-pa-none q-ma-none">
       <q-item class="fit">
         <q-item-section avatar>
-          <q-avatar :size="$q.platform.is.mobile ? '50px' : '75px'" color="brand-5" icon="person"/>
+          <q-avatar square :size="$q.platform.is.mobile ? '100px' : '75px'" class="bg-brand-3 shadow-3">
+            <q-icon
+              :size="$q.platform.is.mobile ? '90px' : '70px'"
+              name="person"
+              color="brand-1"
+            />
+          </q-avatar>
         </q-item-section>
         <q-item-section>
           <q-item-label class="text-grey-3 text-h4">{{ user.alias }}</q-item-label>
-          <q-item-label  class="text-grey-3 text-h8" lines="1">{{ user.firstName }} {{ user.lastName }}</q-item-label>
+          <q-item-label  class="text-grey-3 text-h6">{{ user.firstName }} {{ user.lastName }}</q-item-label>
         </q-item-section>
         <q-item-section side center>
-          <q-item-label class="text-grey-3 text-weight-regular text-h6">Win Ratio: {{ winRatio | winRatioFormat }}</q-item-label>
-          <q-item-label class="text-grey-3 text-weight-regular text-h6">Rank: {{ user.rank }}</q-item-label>
+          <q-item-label class="text-grey-3 text-weight-regular text-h8">Win Ratio: {{ winRatio | winRatioFormat }}</q-item-label>
+          <q-item-label class="text-grey-3 text-weight-regular text-h8">Rank: {{ user.rank }}</q-item-label>
         </q-item-section>
       </q-item>
-    </div>
-  </div>
+    </q-card-section>
+  </q-card>
 </template>
 
 <script>
@@ -24,9 +30,10 @@ export default {
   data () {
     return {
       user: {
-        alias: 'j.gent',
-        firstName: 'John',
-        lastName: 'Gentile',
+        id: 123,
+        alias: 'BigO',
+        firstName: 'Oliver',
+        lastName: 'Bridges',
         lCount: 235,
         wCount: 129,
         rank: 1392
