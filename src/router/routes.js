@@ -9,7 +9,7 @@ const routes = [
         component: () => import('pages/Index.vue'),
         children: [
           {
-            path: ':section?/',
+            path: '/:groupId?/:fixtureId?/:matchId?',
             name: 'Home',
             components: {
               User: () => import('components/Single/User.vue'),
