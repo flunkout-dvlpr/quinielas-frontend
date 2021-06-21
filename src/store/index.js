@@ -1,6 +1,9 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-
+import user from './user'
+import groups from './groups'
+import matches from './matches'
+import fixtures from './fixtures'
 // import example from './module-example'
 
 Vue.use(Vuex)
@@ -17,7 +20,10 @@ Vue.use(Vuex)
 export default function (/* { ssrContext } */) {
   const Store = new Vuex.Store({
     modules: {
-      // example
+      user,
+      groups,
+      matches,
+      fixtures
     },
 
     // enable strict mode (adds overhead!)
