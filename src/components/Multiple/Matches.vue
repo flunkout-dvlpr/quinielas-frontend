@@ -22,7 +22,7 @@
       <div class="row justify-start items-center content-center overflow-auto hide-scrollbar no-wrap q-pa-md">
         <div
           class="col-md-4 col-xs-11 q-ma-sm"
-          v-for="(match, idx) in matches"
+          v-for="(match, idx) in fixtureMatches"
           :key="idx"
           @click="loadMatch(idx)"
         >
@@ -33,6 +33,7 @@
   </q-card>
 </template>
 <script>
+import { mapGetters } from 'vuex'
 import Match from 'components/Single/Match'
 export default {
   name: 'Matches',
@@ -40,75 +41,17 @@ export default {
   data () {
     return {
       loading: false,
-      selectedMatch: 0,
-      matches: [
-        {
-          time: '07:00 PM',
-          date: '06/16/21',
-          teamA: { name: 'Finland', link: 'https://flagcdn.com/80x60/fi.png' },
-          teamB: { name: 'Russia', link: 'https://flagcdn.com/80x60/ru.png' },
-          scoreA: 0,
-          scoreB: 1,
-          predictionA: 0,
-          predictionB: 0,
-          winner: null
-        },
-        {
-          time: '07:00 PM',
-          date: '06/16/21',
-          teamA: { name: 'Turkey', link: 'https://flagcdn.com/80x60/tr.png' },
-          teamB: { name: 'Wales', link: 'https://flagcdn.com/80x60/gb-wls.png' },
-          scoreA: 0,
-          scoreB: 2,
-          predictionA: 0,
-          predictionB: 0,
-          winner: null
-        },
-        {
-          time: '06:00 PM',
-          date: '06/16/21',
-          teamA: { name: 'Italy', link: 'https://flagcdn.com/80x60/it.png' },
-          teamB: { name: 'Switzerland', link: 'https://flagcdn.com/80x60/ch.png' },
-          scoreA: 3,
-          scoreB: 0,
-          predictionA: 0,
-          predictionB: 0,
-          winner: null
-        },
-        {
-          time: '06:00 PM',
-          date: '06/17/21',
-          teamA: { name: 'Ukraine', link: 'https://flagcdn.com/80x60/ua.png' },
-          teamB: { name: 'North Macedonia', link: 'https://flagcdn.com/80x60/mk.png' },
-          scoreA: 2,
-          scoreB: 1,
-          predictionA: 0,
-          predictionB: 0,
-          winner: null
-        },
-        {
-          time: '06:00 PM',
-          date: '06/17/21',
-          teamA: { name: 'Denmark', link: 'https://flagcdn.com/80x60/dk.png' },
-          teamB: { name: 'Belgium', link: 'https://flagcdn.com/80x60/be.png' },
-          scoreA: 1,
-          scoreB: 2,
-          predictionA: 0,
-          predictionB: 0,
-          winner: null
-        },
-        {
-          time: '08:00 PM',
-          date: '06/17/21',
-          teamA: { name: 'Netherlands', link: 'https://flagcdn.com/80x60/nl.png' },
-          teamB: { name: 'Austria', link: 'https://flagcdn.com/80x60/at.png' },
-          scoreA: 2,
-          scoreB: 0,
-          predictionA: 0,
-          predictionB: 0,
-          winner: null
-        }
-      ]
+      selectedMatch: 0
+    }
+  },
+  computed: {
+    ...mapGetters('matches', ['matches']),
+    fixtureMatches () {
+      if (this.$route.params && this.$route.params.fixtureId !== null) {
+        return this.matches.filter(match => match.fixtureId === this.$route.params.fixtureId)
+      } else {
+        return []
+      }
     }
   },
   methods: {
