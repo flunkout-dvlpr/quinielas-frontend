@@ -1,7 +1,7 @@
 <template>
   <q-card
     square
-    :class="idx === selectedGroup ? 'bg-brand-5 border-dark-green-box shadow-8' : 'bg-brand-5 border-dark-green-box'"
+    :class="idx === selectedGroup ? 'bg-brand-5 border-green-box shadow-8' : 'bg-brand-5 border-dark-green-box'"
   >
     <q-card-section class="q-pa-none q-ma-none">
       <div class="row justify-center items-center content-center">
