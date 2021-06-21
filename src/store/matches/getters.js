@@ -1,4 +1,4 @@
-/*
-export function someGetter (state) {
+
+export function matches (state) {
+  return state
 }
-*/
