@@ -27,13 +27,13 @@
         </q-item-section>
         <q-item-section side center class="desktop-only">
           <q-item-label class="q-px-sm q-pt-sm text-grey-3 text-weight-regular text-h8">
-            Group: {{ fixture.group.name }}
+            Group: {{ fixtureGroup.name }}
           </q-item-label>
           <q-item-label class="q-px-sm q-pt-sm text-grey-3 text-weight-regular text-h8">
-            # of Members: {{ fixture.group.numberOfMembers }}
+            # of Members: {{ fixtureGroup.members.length }}
           </q-item-label>
           <q-item-label class="q-px-sm q-pt-sm text-grey-3 text-weight-regular text-h8">
-            # of Matches: {{ fixture.matches.length }}
+            # of Matches: {{ fixtureMatches.length }}
           </q-item-label>
         </q-item-section>
       </q-item>
@@ -42,6 +42,7 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 export default {
   name: 'Fixture',
   data () {
@@ -53,6 +54,16 @@ export default {
     fixture: Object,
     idx: Number,
     selectedFixture: Number
+  },
+  computed: {
+    ...mapGetters('matches', ['matches']),
+    ...mapGetters('groups', ['groups']),
+    fixtureMatches () {
+      return this.matches.filter(match => match.fixtureId === this.fixture.id)
+    },
+    fixtureGroup () {
+      return this.groups.find(group => group.id === this.fixture.groupId)
+    }
   }
 }
 </script>
