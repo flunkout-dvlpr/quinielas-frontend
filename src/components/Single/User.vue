@@ -25,27 +25,16 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 export default {
   name: 'User',
-  data () {
-    return {
-      user: {
-        id: 123,
-        alias: 'BigO',
-        firstName: 'Oliver',
-        lastName: 'Bridges',
-        lCount: 235,
-        wCount: 129,
-        rank: 1392
-      }
-    }
-  },
   filters: {
     winRatioFormat: function (winRatio) {
       return `${Math.round(winRatio * 100)}%`
     }
   },
   computed: {
+    ...mapGetters('user', ['user']),
     winRatio () {
       return this.user.wCount / (this.user.lCount + this.user.wCount)
     }
