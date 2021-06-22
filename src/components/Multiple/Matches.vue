@@ -14,6 +14,7 @@
             :ripple="false"
             label="Add Match"
             class="fit text-grey-3"
+            @click="showAddMatchDialog()"
           />
         </div>
       </div>
@@ -35,6 +36,7 @@
 <script>
 import { mapGetters } from 'vuex'
 import Match from 'components/Single/Match'
+import AddMatch from 'components/Dialog/AddMatch'
 export default {
   name: 'Matches',
   components: { Match },
@@ -57,6 +59,12 @@ export default {
   methods: {
     loadMatch (idx) {
       this.selectedMatch = idx
+    },
+    showAddMatchDialog () {
+      this.$q.dialog({
+        component: AddMatch,
+        parent: this
+      })
     }
   }
 

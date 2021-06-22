@@ -14,6 +14,7 @@
             :ripple="false"
             label="Add Fixture"
             class="fit text-grey-3"
+            @click="showAddFixtrueDialog()"
           />
         </div>
       </div>
@@ -36,6 +37,7 @@
 <script>
 import { mapGetters } from 'vuex'
 import Fixture from 'components/Single/Fixture'
+import AddFixture from 'components/Dialog/AddFixture'
 export default {
   name: 'Fixtures',
   components: { Fixture },
@@ -66,6 +68,12 @@ export default {
       } else {
         this.$router.push({ name: 'Home', params: { groupId: this.$route.params.groupId, fixtureId: idx } })
       }
+    },
+    showAddFixtrueDialog () {
+      this.$q.dialog({
+        component: AddFixture,
+        parent: this
+      })
     }
   }
 }
