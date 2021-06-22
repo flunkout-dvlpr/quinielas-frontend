@@ -1,4 +1,4 @@
-/*
-export function someMutation (state) {
+
+export function addFixture (state, payload) {
+  state = state.push(payload)
 }
-*/
