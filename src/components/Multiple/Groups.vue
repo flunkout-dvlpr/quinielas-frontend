@@ -14,6 +14,7 @@
             :ripple="false"
             label="Add Group"
             class="fit text-grey-3"
+            @click="showAddGroup"
           />
         </div>
       </div>
@@ -35,6 +36,7 @@
 
 <script>
 import { mapGetters } from 'vuex'
+import AddGroup from 'components/Dialog/AddGroup'
 import Group from 'components/Single/Group'
 export default {
   name: 'Groups',
@@ -58,6 +60,12 @@ export default {
       } else {
         this.$router.push({ name: 'Home', params: { groupId: idx } })
       }
+    },
+    showAddGroup () {
+      this.$q.dialog({
+        component: AddGroup,
+        parent: this
+      })
     }
   }
 }
