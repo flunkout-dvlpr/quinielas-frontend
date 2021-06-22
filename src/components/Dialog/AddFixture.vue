@@ -25,6 +25,7 @@
               :options="availableGroups"
               v-model="selectedGroup"
               label="Select Group"
+              readonly
             />
           </div>
         </div>
@@ -43,7 +44,7 @@
               :options="competitions"
               v-model="selectedCompetition"
               label="Select Competition"
-              :readonly="true"
+              readonly
             />
           </div>
         </div>
@@ -102,6 +103,9 @@ export default {
       selectedCompetition: { label: 'UEFA EURO 2020', value: '2018' },
       test: euro
     }
+  },
+  props: {
+    groupId: Number
   },
   computed: {
     ...mapGetters('groups', ['groups']),
@@ -164,12 +168,15 @@ export default {
         name: this.selectedFixture.label,
         competitionId: this.selectedCompetition.value,
         competitionName: this.selectedCompetition.label,
-        startDate: date.formatDate(date.extractDate(this.matches[0].utcDate, 'YYYY-MM-DDTHH:mm'), 'ddd MM/DD/YYYY'),
-        endDate: date.formatDate(date.extractDate(this.matches[this.matches.length - 1].utcDate, 'YYYY-MM-DDTHH:mm'), 'ddd MM/DD/YYYY')
+        startDate: date.formatDate(date.extractDate(this.matches[0].utcDate, 'YYYY-MM-DDTHH:mm'), 'ddd - MM/DD/YYYY'),
+        endDate: date.formatDate(date.extractDate(this.matches[this.matches.length - 1].utcDate, 'YYYY-MM-DDTHH:mm'), 'ddd - MM/DD/YYYY')
       }
       this.updateFixtures(fixture)
       this.hide()
     }
+  },
+  mounted () {
+    this.selectedGroup = this.availableGroups.find(group => group.value === this.groupId)
   }
 }
 </script>
