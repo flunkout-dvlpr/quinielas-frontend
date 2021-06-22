@@ -44,7 +44,7 @@ export default {
   data () {
     return {
       loading: false,
-      selectedFixture: 0
+      selectedFixture: null
     }
   },
   computed: {
@@ -61,20 +61,28 @@ export default {
   methods: {
     loadFixture (idx) {
       this.selectedFixture = idx
-      if (this.$route.params && this.$route.params.groupId && this.$route.params.fixtureId) {
+      if (this.$route.params && this.$route.params.groupId !== null) {
         if (idx !== this.$route.params.fixtureId) {
           this.$router.push({ name: 'Home', params: { groupId: this.$route.params.groupId, fixtureId: idx } })
         }
-      } else {
-        this.$router.push({ name: 'Home', params: { groupId: this.$route.params.groupId, fixtureId: idx } })
       }
     },
     showAddFixtrueDialog () {
       this.$q.dialog({
         component: AddFixture,
-        parent: this
+        parent: this,
+        groupId: this.$route.params.groupId
       })
     }
+  },
+  updated () {
+    this.$nextTick(function () {
+      // Select the first fixture if not fixture id is present in route params
+      console.log(this.$route.params.fixtureId)
+      if (this.groupFixtures.length && !this.$route.params.fixtureId) {
+        this.loadFixture(this.groupFixtures[0].id)
+      }
+    })
   }
 }
 </script>
