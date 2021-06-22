@@ -2,7 +2,7 @@ export default function () {
   return [
     {
       id: 0,
-      fixtureId: 0,
+      fixtureId: 1,
       time: '07:00 PM',
       date: '06/16/21',
       teamA: { name: 'Finland', link: 'https://flagcdn.com/80x60/fi.png' },
@@ -15,7 +15,7 @@ export default function () {
     },
     {
       id: 1,
-      fixtureId: 0,
+      fixtureId: 1,
       time: '07:00 PM',
       date: '06/16/21',
       teamA: { name: 'Turkey', link: 'https://flagcdn.com/80x60/tr.png' },
@@ -28,7 +28,7 @@ export default function () {
     },
     {
       id: 2,
-      fixtureId: 0,
+      fixtureId: 1,
       time: '06:00 PM',
       date: '06/16/21',
       teamA: { name: 'Italy', link: 'https://flagcdn.com/80x60/it.png' },
@@ -41,7 +41,7 @@ export default function () {
     },
     {
       id: 3,
-      fixtureId: 0,
+      fixtureId: 1,
       time: '06:00 PM',
       date: '06/17/21',
       teamA: { name: 'Ukraine', link: 'https://flagcdn.com/80x60/ua.png' },
@@ -54,7 +54,7 @@ export default function () {
     },
     {
       id: 4,
-      fixtureId: 0,
+      fixtureId: 1,
       time: '06:00 PM',
       date: '06/17/21',
       teamA: { name: 'Denmark', link: 'https://flagcdn.com/80x60/dk.png' },
@@ -67,7 +67,7 @@ export default function () {
     },
     {
       id: 5,
-      fixtureId: 0,
+      fixtureId: 1,
       time: '08:00 PM',
       date: '06/17/21',
       teamA: { name: 'Netherlands', link: 'https://flagcdn.com/80x60/nl.png' },
