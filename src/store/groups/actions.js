@@ -1,4 +1,4 @@
-/*
-export function someAction (context) {
+
+export function updateGroups ({ commit }, payload) {
+  commit('addGroup', payload)
 }
-*/
