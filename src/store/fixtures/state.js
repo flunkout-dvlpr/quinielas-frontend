@@ -3,7 +3,7 @@ export default function () {
     {
       id: 1,
       groupId: 1,
-      name: 'Matchday 1',
+      name: 'Matchday 1 (VUEX)',
       competitionId: null,
       competitionName: 'UEFA EURO 2020',
       startDate: '06/11/21',
@@ -12,7 +12,7 @@ export default function () {
     {
       id: 2,
       groupId: 3,
-      name: 'Matchday 2',
+      name: 'Matchday 2 (VUEX)',
       competitionId: null,
       competitionName: 'UEFA EURO 2020',
       startDate: '06/16/21',
