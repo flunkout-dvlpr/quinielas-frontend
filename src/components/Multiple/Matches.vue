@@ -49,8 +49,8 @@ export default {
   computed: {
     ...mapGetters('matches', ['matches']),
     fixtureMatches () {
-      if (this.$route.params && this.$route.params.fixtureId !== null) {
-        return this.matches.filter(match => match.fixtureId === this.$route.params.fixtureId)
+      if (this.$route.params && this.$route.params.fixtureId !== null && this.$route.params.groupId !== null) {
+        return this.matches.filter(match => match.fixtureId === this.$route.params.fixtureId && match.groupId === this.$route.params.groupId)
       } else {
         return []
       }
@@ -61,12 +61,13 @@ export default {
       this.selectedMatch = idx
     },
     showAddMatchDialog () {
+      console.log(this.$route.params.fixtureId)
       this.$q.dialog({
         component: AddMatch,
-        parent: this
+        parent: this,
+        fixtureId: this.$route.params.fixtureId
       })
     }
   }
-
 }
 </script>
