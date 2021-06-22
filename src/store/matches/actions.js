@@ -1,4 +1,4 @@
-/*
-export function someAction (context) {
+
+export function updateMatches ({ commit }, payload) {
+  commit('addMatch', payload)
 }
-*/
