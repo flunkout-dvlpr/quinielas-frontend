@@ -19,7 +19,10 @@
             {{ fixture.name }}
           </q-item-label>
           <q-item-label class="q-px-sm q-pt-xs text-grey-3 text-h8">
-            {{ fixture.startDate }} - {{ fixture.endDate }}
+            {{ fixture.startDate }}
+          </q-item-label>
+          <q-item-label class="q-px-sm q-pt-none text-grey-3 text-h8">
+            {{ fixture.endDate }}
           </q-item-label>
           <q-item-label  class="q-px-sm q-pt-sm text-grey-3 text-caption">
             {{ fixture.competitionName }}
@@ -42,12 +45,14 @@
 </template>
 
 <script>
+import euro from 'src/assets/euro.json'
 import { mapGetters } from 'vuex'
 export default {
   name: 'Fixture',
   data () {
     return {
-      loading: false
+      loading: false,
+      test: euro
     }
   },
   props: {
@@ -59,7 +64,7 @@ export default {
     ...mapGetters('matches', ['matches']),
     ...mapGetters('groups', ['groups']),
     fixtureMatches () {
-      return this.matches.filter(match => match.fixtureId === this.fixture.id)
+      return this.test.matches.filter(match => match.matchday === this.fixture.id)
     },
     fixtureGroup () {
       return this.groups.find(group => group.id === this.fixture.groupId)
