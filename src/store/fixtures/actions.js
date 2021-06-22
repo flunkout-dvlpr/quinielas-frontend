@@ -1,4 +1,4 @@
-/*
-export function someAction (context) {
+
+export function updateFixtures ({ commit }, payload) {
+  commit('addFixture', payload)
 }
-*/
