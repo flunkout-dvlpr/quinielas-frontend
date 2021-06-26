@@ -34,7 +34,7 @@
     <q-card-section class="q-pa-none q-ma-none">
       <div class="row justify-center items-center content-center">
         <div class="col-4 q-px-sm q-pt-none q-pb-xs">
-          <div class="text-h6 text-grey-3 text-center text-weight-regular">
+          <div class="text-h6 text-grey-3 text-center text-weight-regular ellipsis">
             {{ match.teamA.name }}
           </div>
         </div>
@@ -44,7 +44,7 @@
           </div>
         </div>
         <div class="col-4 q-px-sm q-pt-none q-pb-xs">
-          <div class="text-h6 text-grey-3 text-center text-weight-regular">
+          <div class="text-h6 text-grey-3 text-center text-weight-regular ellipsis">
             {{ match.teamB.name }}
           </div>
         </div>
@@ -102,21 +102,6 @@
         </div>
       </div>
     </q-card-section>
-    <!-- Date & Time -->
-<!--     <q-card-section class="q-pa-none q-ma-none">
-      <div class="row justify-center items-center content-center bg-brand-3">
-        <div class="col-6 column justify-end items-start q-px-sm">
-          <div class="text-h8 text-grey-3 text-center">
-            Date: {{ match.date }}
-          </div>
-        </div>
-        <div class="col-6 column justify-end items-end q-px-sm">
-          <div class="text-h8 text-grey-3 text-center">
-            @ {{ match.time }}
-          </div>
-        </div>
-      </div>
-    </q-card-section> -->
   </q-card>
 </template>
 
