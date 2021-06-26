@@ -1,42 +1,42 @@
 <template>
-  <q-page>
-    <!-- ROW I -->
-    <div class="row justify-around items-start content-start">
-      <!-- lEFT SIDE -->
-      <div class="col-md-6 col-xs-11 q-my-md">
-        <div class="row justify-center">
-          <div class="col-md-11 col-xs-12 q-ma-sm">
-            <router-view name="User"/>
-          </div>
-          <div class="col-md-11 col-xs-12 q-ma-sm">
-            <router-view name="Groups" />
-          </div>
-        </div>
-      </div>
-      <!-- RIGHT SIDE -->
-      <div class="col-md-6 col-xs-11 q-my-md">
-        <div class="row justify-center">
-          <div class="col-md-11 col-xs-12 q-ma-sm">
-            <router-view name="Fixtures" />
-          </div>
-        </div>
+  <q-page class="flex-start">
+    <div class="row justify-center items-start content-center q-mt-sm">
+      <div class="col-md-5 col-xs-11">
+        <router-view class="q-mt-sm q-mx-sm"  name="User" />
       </div>
     </div>
-    <!-- ROW II -->
-    <div class="row justify-center items-start content-start">
-      <div class="col-md-11 col-xs-11 q-my-md">
-        <div class="row justify-center">
-          <div class="col-md-12 col-xs-12 q-ma-sm">
-            <router-view name="Matches" />
-          </div>
-        </div>
+    <div class="row justify-center items-start content-center q-mt-sm">
+      <div class="col-md-5 col-xs-11">
+        <router-view class="q-mt-sm q-mx-sm" name="Groups" />
+      </div>
+      <div class="col-md-5 col-xs-11">
+        <router-view class="q-mt-sm q-mx-sm" name="Fixtures" />
       </div>
     </div>
+    <div class="row justify-center items-start content-center q-mt-sm">
+      <div class="col-md-10 col-xs-11">
+        <router-view class="q-mt-sm q-mx-sm" name="Matches" />
+      </div>
+    </div>
+
+    <q-inner-loading
+      :showing="loading"
+    >
+      <q-spinner-bars
+        size="5rem"
+        color="brand-4"
+      />
+    </q-inner-loading>
   </q-page>
 </template>
 
 <script>
 export default {
-  name: 'PageIndex'
+  name: 'Index',
+  data () {
+    return {
+      loading: false
+    }
+  }
 }
 </script>
