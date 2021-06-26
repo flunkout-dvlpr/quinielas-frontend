@@ -1,6 +1,7 @@
 <template>
   <q-card
     square
+    style="height: 275px"
     :class="idx === selectedGroup ? 'bg-brand-5 border-green-box shadow-8' : 'bg-brand-5 border-dark-green-box'"
   >
     <q-card-section class="q-pa-none q-ma-none">
