@@ -66,6 +66,12 @@
   border-width: 8px;
 }
 
+.border-dark-green-box-dash {
+  border-style: dashed;
+  border-color: $brand-3;
+  border-width: 6px;
+}
+
 .border-grey-box {
   border-style: solid;
   border-color: $brand-5;
@@ -91,3 +97,11 @@
   background: rgb(78,123,41);
   background: linear-gradient(215deg, rgba(78,123,41,1) 0%, rgba(62,112,1,1) 100%);
 }
+
+.q-field--error .q-field__bottom {
+  color: $orange-5;
+}
+.text-negative {
+  color: $orange-5 !important;
+}
+
