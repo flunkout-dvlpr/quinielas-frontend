@@ -6,7 +6,7 @@
   >
     <q-card-section class="q-pa-xs q-mb-md brand-green-gradient">
       <div class="row justify-center items-center content-center">
-        <div class="col-md-12 col-xs-7 q-pa-sm">
+        <div class="col-md-12 col-xs-12 q-pa-sm">
           <div class="text-center text-grey-3 text-h4 text-weight-regular">Add Group</div>
         </div>
       </div>
@@ -24,6 +24,7 @@
               color="brand-1"
               v-model="group.name"
               label="Group Name"
+              :rules="[ val => val && val.length > 0 || 'Group Name Required']"
             />
           </div>
         </div>
@@ -67,13 +68,13 @@
       </div>
     </q-card-section> -->
     <!-- Create Group -->
-    <q-card-section class="q-pa-sm q-ma-none bg-brand-6">
+    <q-card-section class="q-pa-none q-ma-none bg-brand-6">
       <div class="row justify-center items-center content-center">
-        <div class="col-4 q-px-sm q-py-none">
+        <div class="col-4 q-pb-md">
           <q-btn
-            dark
             square
             no-caps
+            unelevated
             :ripple="false"
             class="fit"
             text-color="grey-3"
