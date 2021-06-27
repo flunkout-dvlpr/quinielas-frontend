@@ -7,7 +7,7 @@
     <q-card-section class="q-pa-xs q-mb-md brand-green-gradient">
       <div class="row justify-center items-center content-center">
         <div class="col-md-12 col-xs-12 q-pa-sm">
-          <div class="text-center text-grey-3 text-h4 text-weight-regular">Add Fixture</div>
+          <div class="text-center text-grey-3 text-h4 text-weight-regular">Add Round</div>
         </div>
       </div>
     </q-card-section>
@@ -22,7 +22,7 @@
               square
               outlined
               color="brand-1"
-              :options="availableGroups"
+              :options="groupOptions"
               v-model="selectedGroup"
               label="Select Group"
               readonly
@@ -41,7 +41,7 @@
               square
               outlined
               color="brand-1"
-              :options="competitions"
+              :options="competitionOptions"
               v-model="selectedCompetition"
               label="Select Competition"
               readonly
@@ -60,10 +60,10 @@
               square
               outlined
               color="brand-1"
-              :options="fixtures"
-              v-model="selectedFixture"
-              label="Select Fixture"
-              :rules="[ val => val !== null || 'Please Select A Fixture!']"
+              :options="rounds"
+              v-model="selectedRound"
+              label="Select Round"
+              :rules="[ val => val !== null || 'Please Select A Round!']"
             />
           </div>
         </div>
@@ -94,15 +94,13 @@
 <script>
 import { date } from 'quasar'
 import { mapGetters, mapActions } from 'vuex'
-import euro from 'src/assets/euro.json'
 export default {
-  name: 'AddFixture',
+  name: 'AddRound',
   data () {
     return {
-      selectedFixture: null,
+      selectedRound: null,
       selectedGroup: null,
-      selectedCompetition: { label: 'UEFA EURO 2020', value: '2018' },
-      test: euro
+      selectedCompetition: { label: 'UEFA EURO 2020', value: '2018' }
     }
   },
   props: {
@@ -110,11 +108,12 @@ export default {
   },
   computed: {
     ...mapGetters('groups', ['groups']),
-    competitions () {
+    ...mapGetters('rounds', ['rounds']),
+    competitionOptions () {
       // 2018 is the competition id for API
       return [{ label: 'UEFA EURO 2020', value: '2018' }]
     },
-    availableGroups () {
+    groupOptions () {
       const options = []
       this.groups.forEach(group => {
         group.label = group.name
@@ -122,37 +121,10 @@ export default {
         options.push(group)
       })
       return options
-    },
-    fixtures () {
-      const options = []
-      this.test.matches.forEach(match => {
-        if (!options.some(m => m.value === match.matchday)) {
-          if (match.group) {
-            options.push({ label: `Matchday ${match.matchday}`, value: match.matchday })
-          } else {
-            const stageLabel = match.stage.replace(/_/g, ' ').toLowerCase().split(' ').map((s) => s.charAt(0).toUpperCase() + s.substring(1)).join(' ')
-            options.push({ label: stageLabel, value: match.matchday })
-          }
-        }
-      })
-      return options
-    },
-    matches () {
-      if (this.selectedFixture.value) {
-        return this.test.matches.filter(match => match.matchday === this.selectedFixture.value).sort(function (a, b) {
-          const keyA = date.extractDate(a.utcDate, 'YYYY-MM-DDTHH:mm')
-          const keyB = date.extractDate(b.utcDate, 'YYYY-MM-DDTHH:mm')
-          if (keyA < keyB) return -1
-          if (keyA > keyB) return 1
-          return 0
-        })
-      } else {
-        return []
-      }
     }
   },
   methods: {
-    ...mapActions('fixtures', ['updateFixtures']),
+    ...mapActions('rounds', ['updateFixtures']),
     show () {
       this.$refs.dialog.show()
     },
@@ -163,16 +135,11 @@ export default {
       this.hide()
     },
     onSubmit () {
-      const fixture = {
-        id: this.selectedFixture.value,
-        groupId: this.selectedGroup.id,
-        name: this.selectedFixture.label,
-        competitionId: this.selectedCompetition.value,
-        competitionName: this.selectedCompetition.label,
-        startDate: date.formatDate(date.extractDate(this.matches[0].utcDate, 'YYYY-MM-DDTHH:mm'), 'ddd - MM/DD/YYYY'),
-        endDate: date.formatDate(date.extractDate(this.matches[this.matches.length - 1].utcDate, 'YYYY-MM-DDTHH:mm'), 'ddd - MM/DD/YYYY')
+      const groupRound = {
+        name: this.selectedRound,
+        groupId: this.selectedGroup.id
       }
-      this.updateFixtures(fixture)
+      console.log(groupRound)
       this.hide()
     }
   },
