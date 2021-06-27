@@ -16,27 +16,27 @@
         </q-item-section>
         <q-item-section middle center>
           <q-item-label class="q-px-sm q-pt-sm text-grey-3 text-h6">
-            {{ fixture.name }}
+            {{ round.name }}
           </q-item-label>
           <q-item-label class="q-px-sm q-pt-xs text-grey-3 text-h8">
-            {{ fixture.startDate }}
+            <!-- {{ fixture.startDate }} -->
           </q-item-label>
           <q-item-label class="q-px-sm q-pt-none text-grey-3 text-h8">
-            {{ fixture.endDate }}
+            <!-- {{ fixture.endDate }} -->
           </q-item-label>
           <q-item-label  class="q-px-sm q-pt-sm text-grey-3 text-caption">
-            {{ fixture.competitionName }}
+            <!-- {{ fixture.competitionName }} -->
           </q-item-label>
         </q-item-section>
         <q-item-section side center class="desktop-only">
           <q-item-label class="q-px-sm q-pt-sm text-grey-3 text-weight-regular text-h8">
-            Group: {{ fixtureGroup.name }}
+            Group: {{ roundGroup.name }}
           </q-item-label>
           <q-item-label class="q-px-sm q-pt-sm text-grey-3 text-weight-regular text-h8">
-            # of Members: {{ fixtureGroup.members.length }}
+            # of Members: {{ roundGroup.members.length }}
           </q-item-label>
           <q-item-label class="q-px-sm q-pt-sm text-grey-3 text-weight-regular text-h8">
-            # of Matches: {{ fixtureMatches.length }}
+            # of Matches: {{ roundFixtures.length }}
           </q-item-label>
         </q-item-section>
       </q-item>
@@ -45,29 +45,22 @@
 </template>
 
 <script>
-import euro from 'src/assets/euro.json'
 import { mapGetters } from 'vuex'
 export default {
-  name: 'Fixture',
-  data () {
-    return {
-      loading: false,
-      test: euro
-    }
-  },
+  name: 'Round',
   props: {
-    fixture: Object,
-    idx: Number,
-    selectedFixture: Number
+    round: String,
+    groupId: Number,
+    selectedRound: String
   },
   computed: {
-    ...mapGetters('matches', ['matches']),
+    ...mapGetters('fixtures', ['fixtures']),
     ...mapGetters('groups', ['groups']),
-    fixtureMatches () {
-      return this.test.matches.filter(match => match.matchday === this.fixture.id)
+    roundFixtures () {
+      return this.fixtures.filter(fixture => fixture.league.round === this.round)
     },
-    fixtureGroup () {
-      return this.groups.find(group => group.id === this.fixture.groupId)
+    roundGroup () {
+      return this.groups.find(group => group.id === this.groupId)
     }
   }
 }
