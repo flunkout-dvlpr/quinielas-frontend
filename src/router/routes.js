@@ -14,7 +14,7 @@ const routes = [
             components: {
               User: () => import('components/Single/User.vue'),
               Groups: () => import('components/Multiple/Groups.vue'),
-              Fixtures: () => import('components/Multiple/Fixtures.vue'),
+              Rounds: () => import('components/Multiple/Rounds.vue'),
               Matches: () => import('components/Multiple/Matches.vue')
             }
           }

@@ -10,7 +10,7 @@
         <router-view class="q-mt-sm q-mx-sm" name="Groups" />
       </div>
       <div class="col-md-5 col-xs-11">
-        <router-view class="q-mt-sm q-mx-sm" name="Fixtures" />
+        <router-view class="q-mt-sm q-mx-sm" name="Rounds" />
       </div>
     </div>
     <div class="row justify-center items-start content-center q-my-sm">
