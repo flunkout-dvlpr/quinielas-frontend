@@ -12,13 +12,13 @@
           </q-avatar>
         </q-item-section>
         <q-item-section>
-          <q-item-label class="text-grey-3 text-h4">{{ user.alias }}</q-item-label>
-          <q-item-label  class="text-grey-3 text-h6">{{ user.firstName }} {{ user.lastName }}</q-item-label>
+          <q-item-label class="text-grey-3 text-weight-regular text-h4">{{ member.alias }}</q-item-label>
+          <q-item-label class="text-grey-3 text-weight-regular text-h6">{{ member.first_name }} {{ member.last_name }}</q-item-label>
         </q-item-section>
-        <q-item-section side center>
-          <q-item-label class="text-grey-3 text-weight-regular text-h8">Win Ratio: {{ winRatio | winRatioFormat }}</q-item-label>
-          <q-item-label class="text-grey-3 text-weight-regular text-h8">Rank: {{ user.rank }}</q-item-label>
-        </q-item-section>
+<!--         <q-item-section side center class="desktop-only">
+          <q-item-label class="text-grey-3 text-weight-regular text-h8">Win Ratio: NONE</q-item-label>
+          <q-item-label class="text-grey-3 text-weight-regular text-h8">Rank: NONE</q-item-label>
+        </q-item-section> -->
       </q-item>
     </q-card-section>
   </q-card>
@@ -27,17 +27,9 @@
 <script>
 import { mapGetters } from 'vuex'
 export default {
-  name: 'User',
-  filters: {
-    winRatioFormat: function (winRatio) {
-      return `${Math.round(winRatio * 100)}%`
-    }
-  },
+  name: 'Member',
   computed: {
-    ...mapGetters('user', ['user']),
-    winRatio () {
-      return this.user.wCount / (this.user.lCount + this.user.wCount)
-    }
+    ...mapGetters('member', ['member'])
   }
 }
 </script>
