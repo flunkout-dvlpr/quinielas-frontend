@@ -9,10 +9,10 @@ const routes = [
         component: () => import('pages/Index.vue'),
         children: [
           {
-            path: '/:groupId?/:fixtureId?/:matchId?',
+            path: '/:groupId?/:round?/:matchId?',
             name: 'Home',
             components: {
-              User: () => import('components/Single/User.vue'),
+              Member: () => import('components/Single/Member.vue'),
               Groups: () => import('components/Multiple/Groups.vue'),
               Rounds: () => import('components/Multiple/Rounds.vue'),
               Matches: () => import('components/Multiple/Matches.vue')
