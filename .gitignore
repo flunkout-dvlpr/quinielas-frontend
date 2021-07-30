@@ -6,6 +6,8 @@ node_modules
 .quasar
 /dist
 
+# JSON files in src/assets directory
+/src/assets/*.json
 # Cordova related directories and files
 /src-cordova/node_modules
 /src-cordova/platforms
