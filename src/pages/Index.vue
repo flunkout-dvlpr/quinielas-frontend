@@ -2,7 +2,7 @@
   <q-page class="flex-start">
     <div class="row justify-center items-start content-center q-my-sm">
       <div class="col-md-5 col-xs-11">
-        <router-view class="q-mt-sm q-mx-sm"  name="User" />
+        <router-view class="q-mt-sm q-mx-sm"  name="Member" />
       </div>
     </div>
     <div class="row justify-center items-start content-center q-my-sm">
@@ -31,12 +31,19 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex'
 export default {
   name: 'Index',
   data () {
     return {
       loading: false
     }
+  },
+  methods: {
+    ...mapActions('member', ['loadMember'])
+  },
+  mounted () {
+    this.loadMember(5823514034)
   }
 }
 </script>
