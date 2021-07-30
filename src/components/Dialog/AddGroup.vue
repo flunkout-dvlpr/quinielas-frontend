@@ -119,7 +119,11 @@ export default {
     },
     onSubmit () {
       const ids = this.groups.map(group => group.id).sort()
-      this.group.id = ids[ids.length - 1] + 1
+      if (ids.length) {
+        this.group.id = ids[ids.length - 1] + 1
+      } else {
+        this.group.id = 0
+      }
       this.updateGroups(this.group)
       this.hide()
     }
