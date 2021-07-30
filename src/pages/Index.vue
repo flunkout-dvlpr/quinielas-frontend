@@ -1,7 +1,7 @@
 <template>
   <q-page class="flex-start">
     <div class="row justify-center items-start content-center q-my-sm">
-      <div class="col-md-5 col-xs-11">
+      <div class="col-md-3 col-xs-11">
         <router-view class="q-mt-sm q-mx-sm"  name="Member" />
       </div>
     </div>
