@@ -146,7 +146,8 @@ export default {
   props: {
     idx: Number,
     selectedFixture: Number,
-    fixture: Object
+    fixture: Object,
+    poolId: Number
   },
   data () {
     return {
@@ -174,7 +175,7 @@ export default {
   computed: {
     ...mapGetters('predictions', ['predictions']),
     memberPrediction () {
-      const prediction = this.predictions.find(prediction => parseInt(prediction.fixture_id) === parseInt(this.fixture.id))
+      const prediction = this.predictions.find(prediction => parseInt(prediction.fixture_id) === parseInt(this.fixture.id) && parseInt(prediction.pool_id) === parseInt(this.poolId))
       if (prediction) {
         return prediction
       } else {
