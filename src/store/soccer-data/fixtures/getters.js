@@ -1,4 +1,4 @@
 
 export function fixtures (state) {
-  return state
+  return state.fixtures
 }
