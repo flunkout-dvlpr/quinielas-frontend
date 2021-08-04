@@ -26,7 +26,7 @@
           :key="idx"
           @click="loadFixture(idx)"
         >
-          <Fixture :fixture="fixture" :idx="idx" :selectedFixture="selectedFixture" />
+          <Fixture :poolId="poolId" :fixture="fixture" :idx="idx" :selectedFixture="selectedFixture" />
         </div>
       </div>
     </q-card-section>
