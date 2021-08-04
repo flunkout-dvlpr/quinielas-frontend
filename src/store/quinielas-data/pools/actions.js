@@ -1,6 +1,6 @@
 
 export function createPool ({ state, commit }, body) {
-  return this._vm.$axios.post('http://127.0.0.1:3000/pool/create', body)
+  return this._vm.$axios.post('https://59f5tguc6l.execute-api.us-east-2.amazonaws.com/Prod/pool/create', body)
     .then((response) => {
       if (response.data.type === 'success') {
         const result = response.data.body
@@ -38,7 +38,7 @@ export function addMember ({ commit }, payload) {
 }
 
 export function addPoolMember ({ state, commit }, body) {
-  return this._vm.$axios.post('http://127.0.0.1:3000/pool-member/create', body)
+  return this._vm.$axios.post('https://59f5tguc6l.execute-api.us-east-2.amazonaws.com/Prod/pool-member/create', body)
     .then((response) => {
       if (response.data.type === 'success') {
         const result = response.data.body
