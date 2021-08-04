@@ -7,11 +7,11 @@
     <q-card-section class="q-pa-xs q-mb-md brand-green-gradient">
       <div class="row justify-center items-center content-center">
         <div class="col-md-12 col-xs-12 q-pa-sm">
-          <div class="text-center text-grey-3 text-h4 text-weight-regular">Add Group</div>
+          <div class="text-center text-grey-3 text-h4 text-weight-regular">Add Pool</div>
         </div>
       </div>
     </q-card-section>
-    <!-- Group -->
+    <!-- Pool -->
     <q-form @submit="onSubmit">
     <q-card-section class="q-pa-sm">
       <div class="row justify-center items-center content-center">
@@ -22,9 +22,9 @@
               square
               outlined
               color="brand-1"
-              v-model="group.name"
-              label="Group Name"
-              :rules="[ val => val && val.length > 0 || 'Group Name Required']"
+              v-model="pool.name"
+              label="Pool Name"
+              :rules="[ val => val && val.length > 0 || 'Pool Name Required']"
             />
           </div>
         </div>
@@ -67,7 +67,7 @@
         </div>
       </div>
     </q-card-section> -->
-    <!-- Create Group -->
+    <!-- Create Pool -->
     <q-card-section class="q-pa-none q-ma-none bg-brand-6">
       <div class="row justify-center items-center content-center">
         <div class="col-4 q-pb-md">
@@ -92,10 +92,10 @@
 <script>
 import { mapGetters, mapActions } from 'vuex'
 export default {
-  name: 'AddGroup',
+  name: 'AddPool',
   data () {
     return {
-      group: {
+      pool: {
         id: null,
         name: null,
         numberOfMembers: 0,
@@ -104,10 +104,10 @@ export default {
     }
   },
   computed: {
-    ...mapGetters('groups', ['groups'])
+    ...mapGetters('member', ['member'])
   },
   methods: {
-    ...mapActions('groups', ['updateGroups']),
+    ...mapActions('pools', ['createPool']),
     show () {
       this.$refs.dialog.show()
     },
@@ -118,13 +118,8 @@ export default {
       this.hide()
     },
     onSubmit () {
-      const ids = this.groups.map(group => group.id).sort()
-      if (ids.length) {
-        this.group.id = ids[ids.length - 1] + 1
-      } else {
-        this.group.id = 0
-      }
-      this.updateGroups(this.group)
+      this.pool.member_id = this.member.id
+      this.createPool(this.pool)
       this.hide()
     }
   }
