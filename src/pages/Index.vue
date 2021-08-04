@@ -31,7 +31,7 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex'
+import SignIn from 'components/Dialog/SignIn'
 export default {
   name: 'Index',
   data () {
@@ -39,11 +39,31 @@ export default {
       loading: false
     }
   },
-  methods: {
-    ...mapActions('member', ['loadMember'])
-  },
   mounted () {
-    this.loadMember(8325895877)
+    this.$q.dialog({
+      component: SignIn,
+      parent: this
+    })
+    // this.$q.dialog({
+    //   title: 'Welcome, Sign-In or Sign-Up!',
+    //   message: 'Whether you are new or coming back, just type in your phone number!',
+    //   prompt: {
+    //     model: '',
+    //     attrs: {
+    //       dark: true,
+    //       mask: '(###) ### - ####',
+    //       placeholder: '(###) ### - ####'
+    //     },
+    //     outlined: true,
+    //     label: 'Phone Number',
+    //     isValid: val => val.length === 10, // << here is the magic
+    //     type: 'tel' // optional
+    //   },
+    //   cancel: false,
+    //   persistent: true
+    // }).onOk(data => {
+    //   // console.log('>>>> OK, received', data)
+    // })
   }
 }
 </script>
