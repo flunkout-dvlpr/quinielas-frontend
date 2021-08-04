@@ -38,11 +38,11 @@
         </div>
         <div
           class="col-md-12 col-xs-12 q-mx-none q-my-sm"
-          v-for="round in groupRounds"
-          :key="round"
-          @click="loadRound(round)"
+          v-for="(poolRound, idx) in roundsByPoolId"
+          :key="idx"
+          @click="setRouteParameters(poolRound.round_id)"
         >
-          <Round :round="round" :groupId="groupId" :selectedRound="selectedRound" />
+          <Round :round="poolRound" :poolId="poolId" :selectedRound="selectedRound" />
         </div>
       </div>
     </q-card-section>
@@ -63,83 +63,79 @@ export default {
     }
   },
   computed: {
-    ...mapGetters('rounds', ['rounds']),
-    groupId () {
-      if (this.$route.params && this.$route.params.groupId !== null) {
-        console.log('rounds.vue - groupId(): groupId Found In Route', this.$route.params.groupId)
-        return parseInt(this.$route.params.groupId)
+    ...mapGetters('poolRounds', ['poolRounds']),
+    poolId () {
+      if (this.$route.params && this.$route.params.poolId !== null) {
+        console.log('Rounds.vue - poolId(): poolId Found In Route', this.$route.params.poolId)
+        return parseInt(this.$route.params.poolId)
       } else {
-        console.log('rounds.vue - groupId(): groupId Not Found In Route', this.$route.params.groupId)
+        console.log('Rounds.vue - poolId(): poolId Not Found In Route', this.$route.params.poolId)
         return null
       }
     },
     round () {
       if (this.$route.params && this.$route.params.round !== null && !isNaN(this.$route.params.round)) {
-        console.log('rounds.vue - round(): round Found In Route', this.$route.params.round)
+        console.log('Rounds.vue - round(): round Found In Route', this.$route.params.round)
         return parseInt(this.$route.params.round)
       } else {
-        console.log('rounds.vue - round(): round Not Found In Route', this.$route.params.round)
+        console.log('Rounds.vue - round(): round Not Found In Route', this.$route.params.round)
         return null
       }
     },
-    groupRounds () {
-      if (this.groupId !== null) {
-        console.log('rounds.vue - groupRounds(): returning rounds with groupId', this.groupId)
-        return this.rounds.filter(fixture => parseInt(fixture.groupId) === parseInt(this.groupId))
+    roundsByPoolId () {
+      if (this.poolId !== null) {
+        console.log('Rounds.vue - poolRounds(): returning rounds with poolId', this.poolId)
+        return this.poolRounds.filter(round => parseInt(round.pool_id) === parseInt(this.poolId))
       }
-      console.log('rounds.vue - groupRounds(): groupId is null, return empty []')
+      console.log('Rounds.vue - poolRounds(): poolId is null, return empty []')
       return []
     }
   },
   methods: {
-    loadRound (idx) {
-      this.selectedRound = idx
-      if (this.groupId !== null && idx !== null) {
-        if (idx !== this.round) {
-          console.log('lFixtures.vue - oadFixture(): Set round route param to idx', idx)
-          this.$router.push({ name: 'Home', params: { groupId: this.groupId, round: idx } })
+    setRouteParameters (roundId) {
+      this.selectedRound = roundId
+      if (this.poolId !== null && roundId !== null) {
+        if (roundId !== this.round) {
+          console.log('Rounds.vue loadRound(): Set round route param to round id', roundId)
+          this.$router.push({ name: 'Home', params: { poolId: this.poolId, round: roundId } })
         }
       }
     },
     showAddRoundDialog () {
-      if (typeof this.groupId === 'number' && !isNaN(this.groupId)) {
+      if (typeof this.poolId === 'number' && !isNaN(this.poolId)) {
         this.$q.dialog({
           component: AddRound,
           parent: this,
-          groupId: parseInt(this.groupId)
+          poolId: parseInt(this.poolId)
         })
       } else {
         this.$q.notify({
           color: 'orange-5',
           position: 'top',
           textColor: 'grey-9',
-          message: 'Please select a group first',
-          icon: 'group_add'
+          message: 'Please select a pool first',
+          icon: 'pool_add'
         })
       }
     }
+  },
+  mounted () {
+    if (this.round !== null) {
+      this.selectedRound = this.round
+      this.setRouteParameters(this.round)
+    } else {
+      this.selectedRound = null
+    }
+  },
+  updated () {
+    this.$nextTick(function () {
+      if (this.round !== null) {
+        this.selectedRound = this.round
+        this.setRouteParameters(this.round)
+      } else {
+        this.selectedRound = null
+      }
+    })
   }
-  // mounted () {
-  //   if (this.round !== null) {
-  //     console.log('rounds.vue - mounted(): round Found In round comp prop', this.round)
-  //     this.selectedRound = this.round
-  //     this.loadRound(this.round)
-  //   } else {
-  //     console.log('rounds.vue - mounted(): round Not Found In round comp prop', this.round)
-  //     this.selectedRound = null
-  //   }
-  // },
-  // updated () {
-  //   this.$nextTick(function () {
-  //     if (this.round !== null) {
-  //       console.log('rounds.vue - updated(): round Found In round comp prop', this.round)
-  //       this.selectedRound = this.round
-  //       this.loadRound(this.round)
-  //     } else {
-  //       console.log('rounds.vue - updated(): round Not Found In round comp prop', this.round)
-  //       this.selectedRound = null
-  //     }
-  //   })
-  // }
 }
 </script>
