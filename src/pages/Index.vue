@@ -7,7 +7,7 @@
     </div>
     <div class="row justify-center items-start content-center q-my-sm">
       <div class="col-md-5 col-xs-11">
-        <router-view class="q-mt-sm q-mx-sm" name="Groups" />
+        <router-view class="q-mt-sm q-mx-sm" name="Pools" />
       </div>
       <div class="col-md-5 col-xs-11">
         <router-view class="q-mt-sm q-mx-sm" name="Rounds" />
@@ -15,7 +15,7 @@
     </div>
     <div class="row justify-center items-start content-center q-my-sm">
       <div class="col-md-10 col-xs-11">
-        <router-view class="q-mt-sm q-mx-sm" name="Matches" />
+        <router-view class="q-mt-sm q-mx-sm" name="Fixtures" />
       </div>
     </div>
 
