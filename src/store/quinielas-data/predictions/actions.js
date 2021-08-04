@@ -10,23 +10,24 @@ export async function loadPredictions ({ commit }, phone) {
   })
 }
 
-export async function createPrediction ({ commit }, body) {
+export async function createPrediction ({ commit, dispatch, rootState }, body) {
   return this._vm.$axios.post('prediction/create', body).then((response) => {
     if (response.data.type === 'success') {
       const data = response.data.body
       console.log(data)
       commit('addPrediction', data)
+      dispatch('predictions/loadPredictions', rootState.member.phone, { root: true })
       return data
     }
   })
 }
 
-export async function updatePrediction ({ commit }, body) {
+export async function updatePrediction ({ commit, dispatch, rootState }, body) {
   return this._vm.$axios.post('prediction/update', body).then((response) => {
     if (response.data.type === 'success') {
       const data = response.data.body
       console.log(data)
-      // commit('updatePrediction', data)
+      dispatch('predictions/loadPredictions', rootState.member.phone, { root: true })
       return data
     }
   })

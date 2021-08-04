@@ -12,12 +12,15 @@ export async function loadPoolRounds ({ commit }, phone) {
 }
 
 // Create an association/relationship between a pool and a league round
-export async function createPoolRound ({ commit }, body) {
+export async function createPoolRound ({ commit, dispatch, rootState }, body) {
   return this._vm.$axios.post('pool-round/create', body).then((response) => {
     if (response.data.type === 'success') {
       const data = response.data.body
       console.log(data)
       commit('addPoolRound', data)
+      dispatch('rounds/loadRounds', null, { root: true })
+      dispatch('fixtures/loadFixtures', null, { root: true })
+      dispatch('pool-rounds/loadPoolRounds', rootState.member.phone, { root: true })
       return data
     }
   })
