@@ -23,7 +23,7 @@
       </div>
       <div class="row justify-center items-center content-center q-pt-md">
         <div class="col-10">
-          <div class="">
+          <div v-if="!otpSent">
             <q-input
               dark
               square
@@ -38,6 +38,21 @@
               :rules="[ val => val && val.length > 0 || 'Need that phone number 🤓!']"
             />
           </div>
+          <div v-else>
+            <q-input
+              dark
+              square
+              outlined
+              type="tel"
+              mask="# - # - # - #"
+              unmasked-value
+              placeholder="# - # - # - #"
+              color="brand-1"
+              v-model="pin"
+              label="Verification Pin"
+              :rules="[ val => val && val.length > 0 || 'Need that pin 🤓!']"
+            />
+          </div>
         </div>
       </div>
     </q-card-section>
@@ -50,10 +65,12 @@
             :ripple="false"
             class="fit bg-brand-2"
             text-color="grey-3"
-            label="Let Me In!"
+            :label="otpSent ? 'Let Me In!' : 'Send Code'"
             type="submit"
             :loading="loading"
-          />
+          >
+            <q-badge v-if="attempts" :label="attempts" color="red-10" floating/>
+          </q-btn>
         </div>
       </div>
     </q-card-section>
@@ -68,11 +85,15 @@ export default {
   data () {
     return {
       loading: false,
-      phone: null
+      otpSent: false,
+      phone: null,
+      pin: null,
+      otp: null,
+      attempts: 0
     }
   },
   methods: {
-    ...mapActions('member', ['loadMember']),
+    ...mapActions('member', ['signInOTP', 'loadMember']),
     show () {
       this.$refs.dialog.show()
     },
@@ -84,10 +105,41 @@ export default {
     },
     onSubmit () {
       this.loading = true
-      this.loadMember(this.phone).then(() => {
-        this.loading = false
-        this.hide()
-      })
+      if (this.otpSent && this.otp) {
+        if (parseInt(this.pin) === parseInt(this.otp)) {
+          this.loadMember(this.phone).then(() => {
+            this.loading = false
+            this.attempts = 0
+            this.otp = false
+            this.otpSent = false
+            this.hide()
+          })
+        } else if (this.attempts < 2) {
+          this.loading = false
+          this.attempts = this.attempts + 1
+          this.pin = null
+        } else {
+          this.loading = false
+          this.attempts = 0
+          this.otp = false
+          this.otpSent = false
+          this.pin = null
+          this.phone = null
+          this.$q.notify({
+            position: 'top',
+            message: 'Number of attempts exceeded please try sending another verification code',
+            color: 'orange-5',
+            textColor: 'grey-9',
+            icon: 'warning'
+          })
+        }
+      } else {
+        this.signInOTP(this.phone).then((response) => {
+          this.loading = false
+          this.otp = response.otp
+          this.otpSent = true
+        })
+      }
     }
   }
 }
