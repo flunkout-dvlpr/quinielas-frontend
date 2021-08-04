@@ -11,7 +11,7 @@
         </div>
       </div>
     </q-card-section>
-    <!-- Group -->
+    <!-- Pool -->
     <q-form @submit="onSubmit">
     <q-card-section class="q-pa-sm">
       <div class="row justify-center items-center content-center">
@@ -22,9 +22,9 @@
               square
               outlined
               color="brand-1"
-              :options="groupOptions"
-              v-model="selectedGroup"
-              label="Select Group"
+              :options="poolOptions"
+              v-model="selectedPool"
+              label="Select Pool"
               readonly
             />
           </div>
@@ -41,10 +41,12 @@
               square
               outlined
               color="brand-1"
-              :options="competitionOptions"
-              v-model="selectedCompetition"
-              label="Select Competition"
-              readonly
+              :options="leagueOptions"
+              option-value="id"
+              option-label="name"
+              v-model="selectedLeague"
+              label="Select League/Cup"
+              @input="selectedRound = null"
             />
           </div>
         </div>
@@ -60,9 +62,10 @@
               square
               outlined
               color="brand-1"
-              :options="rounds"
+              :options="roundOptions"
               v-model="selectedRound"
               label="Select Round"
+              option-label="name"
               :rules="[ val => val !== null || 'Please Select A Round!']"
             />
           </div>
@@ -92,39 +95,46 @@
   </q-dialog>
 </template>
 <script>
-import { date } from 'quasar'
+// import { date } from 'quasar'
 import { mapGetters, mapActions } from 'vuex'
 export default {
   name: 'AddRound',
   data () {
     return {
       selectedRound: null,
-      selectedGroup: null,
-      selectedCompetition: { label: 'UEFA EURO 2020', value: '2018' }
+      selectedPool: null,
+      selectedLeague: null
     }
   },
   props: {
-    groupId: Number
+    poolId: Number
   },
   computed: {
-    ...mapGetters('groups', ['groups']),
+    ...mapGetters('leagues', ['leagues']),
+    ...mapGetters('pools', ['pools']),
     ...mapGetters('rounds', ['rounds']),
-    competitionOptions () {
-      // 2018 is the competition id for API
-      return [{ label: 'UEFA EURO 2020', value: '2018' }]
+    leagueOptions () {
+      return this.leagues
     },
-    groupOptions () {
+    roundOptions () {
+      if (this.selectedLeague && this.selectedLeague.id) {
+        return this.rounds.filter(round => round.league_id === this.selectedLeague.id)
+      } else {
+        return null
+      }
+    },
+    poolOptions () {
       const options = []
-      this.groups.forEach(group => {
-        group.label = group.name
-        group.value = group.id
-        options.push(group)
+      this.pools.forEach(pool => {
+        pool.label = pool.name
+        pool.value = pool.id
+        options.push(pool)
       })
       return options
     }
   },
   methods: {
-    ...mapActions('rounds', ['updateFixtures']),
+    ...mapActions('poolRounds', ['createPoolRound']),
     show () {
       this.$refs.dialog.show()
     },
@@ -135,16 +145,17 @@ export default {
       this.hide()
     },
     onSubmit () {
-      const groupRound = {
-        name: this.selectedRound,
-        groupId: this.selectedGroup.id
+      const poolRound = {
+        round: this.selectedRound,
+        pool_id: this.selectedPool.id
       }
-      console.log(groupRound)
+      console.log(poolRound)
+      this.createPoolRound(poolRound)
       this.hide()
     }
   },
   mounted () {
-    this.selectedGroup = this.availableGroups.find(group => group.value === this.groupId)
+    this.selectedPool = this.poolOptions.find(pool => pool.value === this.poolId)
   }
 }
 </script>
