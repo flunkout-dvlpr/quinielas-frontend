@@ -41,7 +41,7 @@
               </div>
             </div>
           </div>
-          <div class="bg-brand-4">
+          <div v-if="pool.is_owner" class="bg-brand-4">
             <div :class="`row justify-between items-center content-center ${pool.members.length ? 'border-dark-green-box-dash-thin' : ''}`">
               <div class="col-12">
                 <q-btn
