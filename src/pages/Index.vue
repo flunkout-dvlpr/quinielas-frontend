@@ -43,7 +43,7 @@ export default {
     ...mapActions('member', ['loadMember'])
   },
   mounted () {
-    this.loadMember(5823514034)
+    this.loadMember(8325895877)
   }
 }
 </script>
