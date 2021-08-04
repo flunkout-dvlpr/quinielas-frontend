@@ -78,6 +78,12 @@
   border-width: 6px;
 }
 
+.border-dark-green-box-dash-thin {
+  border-top: dashed;
+  border-color: $brand-3;
+  border-width: 3px;
+}
+
 .border-grey-box {
   border-style: solid;
   border-color: $brand-5;
