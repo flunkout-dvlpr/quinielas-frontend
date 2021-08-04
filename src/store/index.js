@@ -1,10 +1,13 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import user from './user'
-import groups from './groups'
-import matches from './matches'
-import fixtures from './fixtures'
-// import example from './module-example'
+
+import member from './member'
+import pools from './quinielas-data/pools'
+import poolRounds from './quinielas-data/pool-rounds'
+import predictions from './quinielas-data/predictions'
+import leagues from './soccer-data/leagues'
+import rounds from './soccer-data/rounds'
+import fixtures from './soccer-data/fixtures'
 
 Vue.use(Vuex)
 
@@ -20,10 +23,13 @@ Vue.use(Vuex)
 export default function (/* { ssrContext } */) {
   const Store = new Vuex.Store({
     modules: {
-      user,
-      groups,
-      matches,
-      fixtures
+      fixtures,
+      leagues,
+      rounds,
+      member,
+      predictions,
+      pools,
+      poolRounds
     },
 
     // enable strict mode (adds overhead!)
