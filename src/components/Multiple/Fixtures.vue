@@ -11,7 +11,14 @@
           <q-avatar square class="bg-brand-3" font-size="40px" icon="sports_soccer" text-color="grey-3"/>
         </div>
         <div class="q-mx-sm">
-          <div class="text-grey-3 text-h4 text-weight-regular">Fixtures</div>
+          <div class="text-grey-3 text-h4 text-weight-regular">
+            <div>Fixtures</div>
+          </div>
+        </div>
+        <div v-if="round" class="q-mx-sm">
+          <div class="text-grey-3 text-h4 text-weight-regular">
+            <div>{{memberPrediction}}/{{roundFixtures.length}}</div>
+          </div>
         </div>
       </div>
     </q-card-section>
@@ -49,6 +56,16 @@ export default {
   computed: {
     ...mapGetters('fixtures', ['fixtures']),
     ...mapGetters('rounds', ['rounds']),
+    ...mapGetters('predictions', ['predictions']),
+    memberPrediction () {
+      const predictions = this.predictions.filter(prediction => parseInt(prediction.pool_id) === parseInt(this.poolId) && this.roundFixtures.map(fixture => parseInt(fixture.id)).includes(parseInt(prediction.fixture_id)))
+      console.log('PREDICTIONS HERE', predictions)
+      if (predictions) {
+        return predictions.length
+      } else {
+        return 0
+      }
+    },
     poolId () {
       if (this.$route.params && this.$route.params.poolId !== null) {
         return parseInt(this.$route.params.poolId)
