@@ -31,14 +31,17 @@
           </q-item-label>
         </q-item-section>
         <q-item-section side center class="desktop-only">
-          <q-item-label class="q-px-sm q-pt-sm text-grey-3 text-weight-regular text-h8">
-            Pool: {{ pool.name }}
+          <q-item-label class="q-px-sm text-grey-3 text-weight-regular text-h8">
+            <span class="text-weight-light">Pool:</span> <span class="text-weight-medium">{{ pool.name }}</span>
           </q-item-label>
-          <q-item-label class="q-px-sm q-pt-sm text-grey-3 text-weight-regular text-h8">
-            # of Members: {{ pool.members.length }}
+          <q-item-label class="q-px-sm text-grey-3 text-weight-regular text-h8">
+            <span class="text-weight-light">Members:</span> <span class="text-weight-medium">{{ pool.members.length }}</span>
           </q-item-label>
-          <q-item-label class="q-px-sm q-pt-sm text-grey-3 text-weight-regular text-h8">
-            # of Matches: {{ roundFixtures.length }}
+          <q-item-label class="q-px-sm text-grey-3 text-weight-regular text-h8">
+            <span class="text-weight-light">Fixtures:</span> <span class="text-weight-medium">{{ roundFixtures.length }}</span>
+          </q-item-label>
+          <q-item-label class="q-px-sm text-grey-3 text-weight-regular text-h8">
+            <span class="text-weight-light">Predictions:</span> <span class="text-weight-medium">{{ memberPredictions.length }}</span>
           </q-item-label>
         </q-item-section>
       </q-item>
@@ -61,6 +64,7 @@ export default {
     ...mapGetters('fixtures', ['fixtures']),
     ...mapGetters('leagues', ['leagues']),
     ...mapGetters('pools', ['pools']),
+    ...mapGetters('predictions', ['predictions']),
     league () {
       return this.leagues.find(league => league.id === this.round.league_id)
     },
@@ -68,6 +72,15 @@ export default {
       return this.fixtures.filter(fixture => fixture.round === this.round.round_name && fixture.league_id === this.round.league_id && fixture.season === this.round.season).sort(function (a, b) {
         return date.extractDate(a.date, 'YYYY-MM-DDTHH:mm:ss') - date.extractDate(b.date, 'YYYY-MM-DDTHH:mm:ss')
       })
+    },
+    memberPredictions () {
+      const predictions = this.predictions.filter(prediction => parseInt(prediction.pool_id) === parseInt(this.poolId) && this.roundFixtures.map(fixture => parseInt(fixture.id)).includes(parseInt(prediction.fixture_id)))
+      console.log('Round - PREDICTIONS HERE', predictions)
+      if (predictions) {
+        return predictions
+      } else {
+        return 0
+      }
     },
     startDate () {
       const startDate = date.extractDate(this.roundFixtures[0].date, 'YYYY-MM-DDThh:mm:ss')
