@@ -1,6 +1,6 @@
 export default function () {
   return {
-    groups: [],
+    pools: [],
     members: [],
     rounds: []
   }
