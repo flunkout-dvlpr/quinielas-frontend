@@ -17,7 +17,7 @@
         </div>
         <div v-if="round" class="q-mx-sm">
           <div class="text-grey-3 text-h4 text-weight-regular">
-            <div>{{memberPrediction}}/{{roundFixtures.length}}</div>
+            <div>{{memberPredictions.length}}/{{roundFixtures.length}}</div>
           </div>
         </div>
       </div>
@@ -57,11 +57,11 @@ export default {
     ...mapGetters('fixtures', ['fixtures']),
     ...mapGetters('rounds', ['rounds']),
     ...mapGetters('predictions', ['predictions']),
-    memberPrediction () {
+    memberPredictions () {
       const predictions = this.predictions.filter(prediction => parseInt(prediction.pool_id) === parseInt(this.poolId) && this.roundFixtures.map(fixture => parseInt(fixture.id)).includes(parseInt(prediction.fixture_id)))
       console.log('PREDICTIONS HERE', predictions)
       if (predictions) {
-        return predictions.length
+        return predictions
       } else {
         return 0
       }
