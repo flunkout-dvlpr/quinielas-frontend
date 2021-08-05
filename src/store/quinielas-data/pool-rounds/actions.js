@@ -17,10 +17,11 @@ export async function createPoolRound ({ commit, dispatch, rootState }, body) {
     if (response.data.type === 'success') {
       const data = response.data.body
       console.log(data)
-      commit('addPoolRound', data)
+      // commit('addPoolRound', data)
       dispatch('rounds/loadRounds', null, { root: true })
       dispatch('fixtures/loadFixtures', null, { root: true })
-      dispatch('pool-rounds/loadPoolRounds', rootState.member.phone, { root: true })
+      dispatch('poolRounds/loadPoolRounds', rootState.member.phone, { root: true })
+      dispatch('predictions/loadPredictions', rootState.member.phone, { root: true })
       return data
     }
   })
