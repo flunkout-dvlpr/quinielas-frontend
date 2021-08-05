@@ -27,7 +27,7 @@ export async function updatePrediction ({ commit, dispatch, rootState }, body) {
     if (response.data.type === 'success') {
       const data = response.data.body
       console.log(data)
-      dispatch('predictions/loadPredictions', rootState.member.phone, { root: true })
+      commit('setUpdatedPrediction', data.updated_prediction)
       return data
     }
   })
