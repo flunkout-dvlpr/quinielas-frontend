@@ -1,6 +1,7 @@
 <template>
   <q-dialog persistent ref="dialog">
   <q-card
+    square
     style="width: 25rem;"
     class="shadow-20 bg-brand-6"
   >
@@ -11,19 +12,21 @@
         </div>
       </div>
     </q-card-section>
-    <!-- Pool -->
-    <q-form @submit="onSubmit">
+
     <q-card-section class="q-pa-none q-ma-none">
-      <div class="row justify-center items-center content-center q-pt-lg">
+      <div class="row justify-center items-center content-center q-my-md">
         <div class="col-10">
-          <div class="text-weight-regualr text-center text-grey-3 text-h8">
+          <div class="q-pa-xs text-weight-regualr text-center text-grey-3 text-h8">
             Whether you're back for more or are just now joining, enter your phone number to continue.
           </div>
         </div>
       </div>
-      <div class="row justify-center items-center content-center q-pt-md">
+    </q-card-section>
+    <q-form v-if="!otpSent" @submit="sendOTP">
+      <q-card-section class="q-pa-none q-ma-none">
+      <div class="row justify-center items-center content-center q-mb-md">
         <div class="col-10">
-          <div v-if="!otpSent">
+          <div>
             <q-input
               dark
               square
@@ -35,10 +38,34 @@
               color="brand-1"
               v-model="phone"
               label="Phone Number"
-              :rules="[ val => val && val.length > 0 || 'Need that phone number 🤓!']"
+              :rules="[ val => val && val.length > 0 || 'Enter phone number 🤓!']"
             />
           </div>
-          <div v-else>
+        </div>
+      </div>
+      <div class="row justify-center items-center content-center q-mb-md">
+        <div class="col-4">
+          <q-btn
+            flat
+            no-caps
+            :ripple="false"
+            class="fit bg-brand-2"
+            text-color="grey-3"
+            label="Send Code"
+            type="submit"
+            :loading="loading"
+          >
+            <q-badge v-if="attempts" :label="attempts" color="red-10" floating/>
+          </q-btn>
+        </div>
+      </div>
+      </q-card-section>
+    </q-form>
+    <q-form v-if="otpSent" @submit="signIn">
+      <q-card-section class="q-pa-none q-ma-none">
+      <div class="row justify-center items-center content-center q-mb-md">
+        <div class="col-10">
+          <div>
             <q-input
               dark
               square
@@ -55,9 +82,7 @@
           </div>
         </div>
       </div>
-    </q-card-section>
-    <q-card-section class="q-pa-none q-ma-none">
-      <div class="row justify-center items-center content-center q-pt-sm q-pb-md">
+      <div class="row justify-center items-center content-center q-mb-md">
         <div class="col-4">
           <q-btn
             flat
@@ -65,7 +90,7 @@
             :ripple="false"
             class="fit bg-brand-2"
             text-color="grey-3"
-            :label="otpSent ? 'Let Me In!' : 'Send Code'"
+            label="Let Me In!"
             type="submit"
             :loading="loading"
           >
@@ -73,7 +98,7 @@
           </q-btn>
         </div>
       </div>
-    </q-card-section>
+      </q-card-section>
     </q-form>
   </q-card>
   </q-dialog>
@@ -103,7 +128,15 @@ export default {
     onCancel () {
       this.hide()
     },
-    onSubmit () {
+    sendOTP () {
+      this.loading = true
+      this.signInOTP(this.phone).then((response) => {
+        this.loading = false
+        this.otp = response.otp
+        this.otpSent = true
+      })
+    },
+    signIn () {
       this.loading = true
       if (this.otpSent && this.otp) {
         if (parseInt(this.pin) === parseInt(this.otp)) {
@@ -133,12 +166,6 @@ export default {
             icon: 'warning'
           })
         }
-      } else {
-        this.signInOTP(this.phone).then((response) => {
-          this.loading = false
-          this.otp = response.otp
-          this.otpSent = true
-        })
       }
     }
   }
