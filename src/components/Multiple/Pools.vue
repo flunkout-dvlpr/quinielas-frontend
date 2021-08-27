@@ -1,5 +1,6 @@
 <template>
   <q-card
+    square
     class="shadow-20 bg-brand-4"
   >
     <q-card-section class="q-pa-none q-ma-none brand-green-gradient">

@@ -1,6 +1,7 @@
 <template>
   <q-dialog ref="dialog">
   <q-card
+    square
     style="width: 25rem;"
     class="shadow-20 bg-brand-6"
   >
